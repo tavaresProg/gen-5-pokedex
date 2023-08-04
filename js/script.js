@@ -20,6 +20,7 @@ const renderPokemon = async (pokemon) => {
 
     pokemonName.innerHTML = 'Buscando...';
     pokemonNumber.innerHTML = '';
+    pokemonImage.src = 'images/pokemon-trainer.gif';
 
     const data = await fetchPokemon(pokemon);
     if (data && data.id <= '649') {
@@ -38,7 +39,13 @@ const renderPokemon = async (pokemon) => {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    renderPokemon(input.value.toLowerCase());
+    e.preventDefault();
+    const inputValue = input.value.toLowerCase();
+    if (!isNaN(parseInt(inputValue, 10))) {
+        renderPokemon(parseInt(inputValue, 10));
+    } else {
+        renderPokemon(inputValue);
+    }
 })
 
 btnPrev.addEventListener('click', () => {
@@ -54,3 +61,5 @@ btnNext.addEventListener('click', () => {
         renderPokemon(searchPokemon);
     }
 });
+
+renderPokemon(searchPokemon);
